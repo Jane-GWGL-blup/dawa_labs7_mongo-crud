@@ -33,3 +33,44 @@ export const create = async (req, res) => {
    });
  }
 };
+//UPDATE
+
+export const updateOne = async (req, res) => {
+    try{
+        const { id: _id } = req.params
+        const student = req.body;
+        const studentUpdated = await Student.findByIdAndUpdate(_id, student, {new: true});
+        res.json({
+            ok: "Student updated",
+            data: studentUpdated
+            }
+        )
+    }catch(error){
+        res.json({
+            ok: false,
+            data: error.message,
+        })
+    
+    }
+}
+
+//DELETE
+export const remove = async (req, res) => {
+    try {
+        const { id } = req.params
+        const studentDeleted = await Student.findByIdAndRemove({_id:id});
+        res.json({
+            ok:"Student deleted",
+            data: studentDeleted
+            
+        })
+
+    }catch(error){
+        console.log(err.message);
+        res.json({
+            ok: false,
+            data: error.message,
+        })
+
+    }
+}
